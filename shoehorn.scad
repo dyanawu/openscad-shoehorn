@@ -46,7 +46,7 @@ Under the following terms:
     ShareAlike - If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original. 
 */
 
-width=rad*1;
+width=rad*0.75;
 
 /* $fs = 0.4; */
 /* $fa = 1; */
