@@ -1,14 +1,14 @@
 //Length of the shoe horns straight part in mm
-height=120;
+height=110; 
 
 //Thickness of the shoe horn in mm
-thick=3.5;
+thick=3;
 
 //Diameter of the hole to hang it
-holesize=0;
+holesize=9;
 
 //Radius of the circle for the main curvature at the end of the shoe horn
-rad=40;
+rad=30;
 
 //Radius multiplier for the middle part of the shoe horn (make it flatter in the middle)
 rad_multiplier1=1.5;
@@ -20,7 +20,7 @@ rad_multiplier2=1.75;
 angle_step=1;
 
 //Faces for the rounding at the ends of the shoe horn
-/* faces=10; */
+faces=10;
 
 // preview[view:left, tilt:side]
 
@@ -46,20 +46,17 @@ Under the following terms:
     ShareAlike - If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original. 
 */
 
-width=rad*0.75;
-
-/* $fs = 0.4; */
-/* $fa = 1; */
+width=rad*1.4;
 
 module stickballs(rot,low_z,high_z,low_r,high_r,round_low)
 {
 	rotate([0,0,rot])
 		{
 			translate([-low_r,0,low_z+(1-cos(rot))*round_low])
-				sphere(r=thick/2);
+				sphere(r=thick/2,$fn=faces);
 
 			translate([-high_r,0,high_z])
-				sphere(r=thick/2);
+				sphere(r=thick/2,$fn=faces);
 		}
 }
 
@@ -93,8 +90,8 @@ module shoehorn(length)
 				}
 				hull()
 				{
-//					stickballsshort(i);
-//					stickballsshort(i+angle_step);
+					stickballsshort(i);
+					stickballsshort(i+angle_step);
 				}
 			}
 		}
@@ -105,10 +102,12 @@ module shoehorn(length)
 		translate([-rad*rad_multiplier1,0,height/2])
 			rotate([0,45,0])
 				rotate([0,0,45])
-					cylinder(d=holesize, h=thick*50, center=true);
+					cylinder(r = holesize/2, h = thick * 4, center=true);
 	}
 }
 
-rotate([90,0,0])
-	shoehorn(height);
+translate([0, 0, width/2]) {
+	rotate([90,0,0])
+		shoehorn(height);
+}
 
